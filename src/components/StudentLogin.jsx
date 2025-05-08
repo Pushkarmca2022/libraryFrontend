@@ -11,11 +11,29 @@ const StudentLogin = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Student ID:', studentId, 'Password:', password, 'Remember Me:', rememberMe);
-    // Add your login logic here
+  
+    try {
+      const response = await axiosInstance.post('/login', {
+        studentId,
+        password,
+        rememberMe,
+      });
+  
+      console.log('Login success:', response.data);
+      // Store token or navigate, etc.
+  
+    } catch (error) {
+      console.error('Login failed:', error.response?.data || error.message);
+    }
   };
+
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   console.log('Student ID:', studentId, 'Password:', password, 'Remember Me:', rememberMe);
+  //   // Add your login logic here
+  // };
   const handleForgotPassword = () => {
     // Logic for forgot password can be implemented here
     alert('Redirecting to the password recovery page...');
